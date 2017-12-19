@@ -27,8 +27,8 @@ const getUsers = users => ({type: GET_USERS, users})
  */
 export const getUserById = (id) =>
   dispatch =>
-      axios.get(`/api/users/${id}`)
-        .then(res =>
+      axios.get(`/api/users/${id}`)      
+      .then(res =>
           dispatch(getUserLookup(res.data)))
           .catch(err => console.log(err))
 

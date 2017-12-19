@@ -5,7 +5,8 @@ module.exports = router
 router.get('/', (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields, not private fields
-    attributes: ['id', 'email', 'isAdmin']
+    attributes: ['id', 'email', 'isAdmin', 'communication_score', 'coding_score', 'title', 'companyId'],
+    include: [{ all: true }]
   })
     .then(users => res.json(users))
     .catch(next)

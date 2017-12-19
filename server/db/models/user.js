@@ -1,11 +1,12 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Company = db.Company;
 
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
-    unique: true,    
+    unique: true,
   },
   password: {
     type: Sequelize.STRING
@@ -17,10 +18,16 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   communication_score: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
+  },
+  communication_percentile: {
+    type: Sequelize.FLOAT
   },
   coding_score: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
+  },
+  coding_percentile: {
+    type: Sequelize.FLOAT
   },
   title: {
     type: Sequelize.STRING
@@ -77,3 +84,36 @@ const setSaltAndPassword = user => {
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+
+/*const updatePercentiles = user => {
+  if (user.changed('communication_score') || user.changed('coding_score')) {
+    let company;
+    db.Company.findById(user.companyId).then(res => {
+      company = res;
+    }).then(() => {
+      return User.findAll({ where:
+        {
+          title: user.title,        
+        },
+        include: [{all: true}], 
+      });
+    })
+    .then(users => {
+      return users.filter(ur => {
+        return Math.abs(company.fractal_index - ur.company.fractal_index) < 0.15;
+      });
+    }).then(users => {
+      users.forEach(usr => {
+        usr.update({
+          communication_score: 8,
+          coding_score: 8
+        })
+      })
+    })
+  }
+}
+
+User.beforeCreate(updatePercentiles)*/
+//User.beforeUpdate(updatePercentiles)
+
+
