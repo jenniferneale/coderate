@@ -3,6 +3,7 @@
 const {expect} = require('chai')
 const db = require('../index')
 const User = db.model('user')
+const Company = db.model('company')
 
 describe('User model', () => {
   beforeEach(() => {
@@ -11,15 +12,20 @@ describe('User model', () => {
 
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
-      let cody
+      let cody;
+      let puppybook;
 
       beforeEach(() => {
         return User.create({
           email: 'cody@puppybook.com',
-          password: 'bones'
-        })
+          password: 'bones',
+          communication_score: 51000,
+          coding_score: 64000,
+          title: "Engineer"
+        }, { include: [{all: true}]})
           .then(user => {
-            cody = user
+            cody = user;
+            puppybook = user.companyId;
           })
       })
 

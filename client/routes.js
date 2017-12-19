@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import {Main, Login, Signup, UserHome, GetPercentile} from './components'
 import {me} from './store'
 
 /**
@@ -31,8 +31,8 @@ class Routes extends Component {
                   <Route path="/home" component={UserHome} />
                 </Switch>
             }
-            {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            {/* Displays GetPercentile form if not logged in */}
+            <Route component={GetPercentile} />
           </Switch>
         </Main>
       </Router>

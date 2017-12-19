@@ -1,4 +1,4 @@
-candidate_id,communication_score,coding_score,title,company_id
+id,communication_score,coding_score,title,companyId
 889,114028,180944,Engineer,2
 890,62734,64000,Engineer,2
 891,167656,231216,Engineer,2

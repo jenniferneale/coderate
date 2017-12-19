@@ -5,8 +5,7 @@ const db = require('../db')
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    unique: true,    
   },
   password: {
     type: Sequelize.STRING
@@ -16,6 +15,29 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  communication_score: {
+    type: Sequelize.INTEGER
+  },
+  coding_score: {
+    type: Sequelize.INTEGER
+  },
+  title: {
+    type: Sequelize.STRING
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+    field: 'createdAt',
+    defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    field: 'updatedAt',
+    defaultValue: Sequelize.NOW
   }
 })
 
