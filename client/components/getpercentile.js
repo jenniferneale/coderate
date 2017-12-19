@@ -1,23 +1,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { getUserById } from '../store'
+import { SingleUserLookup } from './singleUserLookup';
 
 export const GetPercentile = (props) => {
-    const {email} = props
-  
+    const {handleSubmit} = props;
+    console.log('props', props);
     return (
-      <div>
-        <h3>Welcome, {email}</h3>
-      </div>
+    <div>
+      <h3>Get the Percentile for Your Candidate Id:</h3>
+      <form onSubmit={handleSubmit} name="GetPercentile">
+        <div>
+            <label htmlFor="candidateId"><small>Candidate Id</small></label>
+            <input name="candidateId" type="text" />
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <SingleUserLookup />
+    </div>
     )
-  }
-  
-  /**
-   * CONTAINER
-   */
-  const mapState = (state) => {
+}
+
+const mapDispatch = (dispatch) => {
     return {
-      email: state.user.email
+        handleSubmit (evt) {
+            evt.preventDefault();
+            const candidateId = evt.target.candidateId.value;
+            console.log('----------------candidateId ', candidateId);
+            dispatch(getUserById(candidateId))
+        }
     }
-  }
-  
-  export default connect(mapState)(GetPercentile)
+}
+
+  export default connect(state => state, mapDispatch)(GetPercentile)
